@@ -104,19 +104,19 @@ What and where does this artefact provides services?
 #### talks_to
 To which other `service_name` (from `provides`) services does this service talk?
 
+Explicit declare host,port,protocol or all together?
+
 Example:
 
 ```
 provides:
   - description: REST API
     service_name: uber-bill-print-service
-    port: 8443
-    protocol: https
+    url: https://host:8443
     transportation_protocol: tcp
   - description: SOAP API (legacy)
     service_name: print-service
-    port: 80
-    protocol: http
+    url: http://host:80
     transportation_protocol: tcp  
     
 talks_to:
@@ -131,15 +131,11 @@ talks_to:
 
 ```
  external_connections:
-   - target: api.superdealz.me
-     port: 443
-     protocol: https
+   - target: https://api.superdealz.me:443
      transportationProtocol: tcp
-     proxy: GWY
+     via: proxy-service
      why: Need to sync data with it.
-   - target: 192.xxx.xxx.xxx:444
-     port: 443
-     protocol: https
+   - target: mqtt://192.xxx.xxx.xxx:5028
      transportationProtocol: tcp
      why: Get the latest Dealz.
      
