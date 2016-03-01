@@ -201,8 +201,9 @@ If you need to have your own keys in this configuration you can simply add your 
 
 Example:
 
-### epost.yaml
+### my_company.yaml
 
 ```
 host_group: XYZ
+os: debian
 ```
