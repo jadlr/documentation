@@ -101,10 +101,11 @@ What and where does this artefact provides services?
 `description` Should be a human readable description.
 `service_name` is the identification of the particluar interface. `port`, `protocol` and `transportation_protocol` are self describing.
 
+**Question:** Explicit declare host,port,protocol or all together?
+
 #### talks_to
 To which other `service_name` (from `provides`) services does this service talk?
 
-Explicit declare host,port,protocol or all together?
 
 Example:
 
@@ -122,21 +123,22 @@ provides:
 talks_to:
   - print-service
   - gateway-service
-
-    
-
 ```
 
 ### network.yaml
 
+To which external `target` needs this artefact to talk to? What is the `transportation_protocol` and `why` is it needed? If it access the external resource `via` another service, it can be defined.
+
+Which `attached_networks` need to be available on the host where this service gets deployed. In which `network_zone` is this service located?
+
 ```
  external_connections:
    - target: https://api.superdealz.me:443
-     transportationProtocol: tcp
+     transportation_protocol: tcp
      via: proxy-service
      why: Need to sync data with it.
    - target: mqtt://192.xxx.xxx.xxx:5028
-     transportationProtocol: tcp
+     transportation_protocol: tcp
      why: Get the latest Dealz.
      
  attached_networks:
@@ -152,24 +154,27 @@ network_zone:
 
 ### context.yaml
 
+If the service does belong to a bounded context it can be specified in: `belongs_to_bounded_context`. General rule is that every service belongs to a bounded context. 
+
+Which `visibility` does this service have?
+ 
+- `private`: intended usage is only by the owner
+- `public`: exposes an api for other owners.
+
+Components that are under development, experimental, not supported, beeing replaces or to change without warning should be `private`.
+
 ```
 belongs_to_bounded_context: Delivery
-
-# Intended usage of this component:
-# - private: - only for use by the owner
-# - public: - exposes an api for other owner
-# Components that are under development, experimental, not suppoted, replace, or to change
-# without warning should generally be marked as private.
 visibility: private
 ```
 
 ### runtime.yaml
+
+Which requirements does this service have on the runtime? This is used for sizing the machine, VM or container.
 
 ```
 runtime:
   cpu: L
   ram: S
   disk: XL
-
-
 ```
