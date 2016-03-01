@@ -45,30 +45,25 @@ and a single file version more like this:
 
 Every section, except some attributed of the general section, is optional. The idea at the moment is that every section will be represented correspondingly in the UI somehow.
 
+Convention: All keys are lower case and words are connected by '_'. No camelcase.
+
 ### general.yaml
 
-#### id  (mandantory)
-Unique id in pivio. 
+Pivio needs certain *mandantory* fields:
 
-#### name (mandantory)
-The name of the artefact. This is intended for humans.
+- **id** Unique id in pivio. 
+- **name** The name of the artefact. This is intended for humans.
+- **type** The type of this artefact. Values could be `service`, `library` or `mobile_app`.
+- **owner** Which team is responsible for this artefact.
+- **decription** What does this service do? 
 
-#### type  (mandantory)
-The type of this artefact. Values could be `service`, `library` or `mobile_app`.
+##### contact
+Who should be contacted if one has a question. 
 
-#### owner  (mandantory)
-Which team is responsible for this artefact.
+##### vcs
+Where can I find the source code? A client who parses this file might choose to generate it from the code which it has at hand (if it is under source control).
 
-#### description  (mandantory)
-What does this service do? 
-
-#### contact
-Who should be contacted if one has a question.
-
-#### vcs
-Where can I find the source code? A client who parses this file might choose to generate it from the code which it has at hand.
-
-#### links
+##### links
 All sort of links which might be interesting. Candidates are
 
 - homepage
@@ -95,15 +90,15 @@ links:
 ### service.yaml
 
 
-#### provides
+##### provides
 What and where does this artefact provides services? 
 
 `description` Should be a human readable description.
-`service_name` is the identification of the particluar interface. `port`, `protocol` and `transportation_protocol` are self describing.
+`service_name` is the  unqiue  identification of the particluar interface. `port`, `protocol` and `transportation_protocol` are self describing.
 
 **Question:** Explicit declare host,port,protocol or all together?
 
-#### talks_to
+##### talks_to
 To which other `service_name` (from `provides`) services does this service talk?
 
 
@@ -198,4 +193,16 @@ If however you need to specify the software dependencies by hand, this is the pl
   version: 1.0
   license: GPL
   url: https://gcc.gnu.org/onlinedocs/libstdc++/manual/license.html
+```
+
+## Custom extensions
+
+If you need to have your own keys in this configuration you can simply add your own key word/yaml file.
+
+Example:
+
+### epost.yaml
+
+```
+host_group: XYZ
 ```
