@@ -1,0 +1,2 @@
+belongs_to_bounded_context: Delivery
+visibility: private
