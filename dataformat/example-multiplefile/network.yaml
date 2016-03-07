@@ -1,17 +1,2 @@
-external_connections:
-   - target: https://api.superdealz.me:443
-     transportationProtocol: tcp
-     via: proxy-service
-     why: Need to sync data with it.
-   - target: mqtt://192.xxx.xxx.xxx:5028
-     transportationProtocol: tcp
-     why: Get the latest Dealz.
-
- attached_networks:
-   - logging
-   - shell
-   - ubp
-   - secure
-   - monitoring
-
-network_zone: BACKEND
+network:
+  network_zone: BACKEND

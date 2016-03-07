@@ -1,13 +1,25 @@
-provides:
-  - description: REST API
-    service_name: uber-bill-print-service
-    url: https://host:8443
-    transportation_protocol: tcp
-  - description: SOAP API (legacy)
-    service_name: print-service
-    url: http://host:80
-    transportation_protocol: tcp
+service:
+  provides:
+    - description: REST API
+      service_name: uber-bill-print-service
+      protocol: https
+      port: 8443
+      transportation_protocol: tcp
+    - description: SOAP API (legacy)
+      service_name: print-service
+      protocol: https
+      port: 80
+      transportation_protocol: tcp
 
-talks_to:
-  - print-service
-  - gateway-service
+  external_connections:
+     - target: https://api.superdealz.me:443
+       transportationProtocol: tcp
+       via: proxy-service
+       why: Need to sync data with it.
+     - target: mqtt://192.xxx.xxx.xxx:5028
+       transportationProtocol: tcp
+       why: Get the latest Dealz.
+
+  talks_to:
+    - print-service
+    - gateway-service

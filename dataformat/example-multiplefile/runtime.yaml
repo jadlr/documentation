@@ -1,3 +1,5 @@
-cpu: L
-ram: S
-disk: XL
+runtime:
+  cpu: L
+  ram: S
+  disk: XL
+  host_type: docker
