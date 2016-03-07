@@ -57,12 +57,18 @@ Pivio needs certain *mandantory* fields:
 - **type** The type of this artefact. Values could be `service`, `library` or `mobile_app`.
 - **owner** Which team is responsible for this artefact.
 - **decription** What does this service do?
+- **decription** What does this service do?
+- **short_name** The short name of the service. The regular name (see above) of a service could be `3D printing service` whereas the short name is `NGPS`.
 
 ##### contact
 Who should be contacted if one has a question.
 
 ##### vcs
 Where can I find the source code? A client who parses this file might choose to generate it from the code which it has at hand (if it is under source control).
+
+#### tags
+
+Add tags.
 
 ##### links
 All sort of links which might be interesting. Candidates are
@@ -83,6 +89,9 @@ owner: Team Goldfinger
 description: Prints all kinds of things. Now with 3D printing support.
 vcs: git://git.vcs.local/UBP
 contact: Auric Goldfinger
+tags:
+ - Old
+ - Demo
 links:
   homepage: http://wiki.local/ubp
   buildchain: http://ci.local/ubp
