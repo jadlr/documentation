@@ -5,17 +5,17 @@ However, we tuned the server backed elasticsearch a bit to support the structure
 
 The examples are all in yaml format. This is just a convience since we think it is easier to read and write than json. A suiteable client  on the other hand must to speak json to the server, so he needs to convert it.
 
-## Where 
+## Where
 
 You two choices to specify your metadata of your code and services.
 
 - In one single ``pivio.yaml`` file of the root of the source code
 - In a directory called ``pivio`` in the root of the source code
 
-The content is structured in both cases the same. In the single file case you need to have section as keys like ``general``, ``network`` and ``software_dependencies``. In the case of a ``pivio`` directory these keys are the file names of the more specialized yaml files. So for each section in the one file you would have corresponding files in the multiple file case. 
+The content is structured in both cases the same. In the single file case you need to have section as keys like ``general``, ``network`` and ``software_dependencies``. In the latter case you can split the content in multiple files in the subdirectory `pivio`. If you have both ``pivio.yaml`` and ``pivio`` directory the client should exit with an error message.
 
-So what's the different use cases for both styles? In your own source code you will usually use the directory based approach, since the config file can be very long, especially when you leave all the (useful) comments in. So we split it into much smaller section, so it all should fit on one page in your editor. 
-So why use the single file approach at all? For modelling certain aspect of the services you need, like 3rd party services you access, it is very tideous to split the little information you have/need into multiple files. This is usually the case for a single file configuration.
+So what's the different use cases for both styles? In your own source code you will usually use the directory based approach, since the config file can be very long, especially when you leave all the (useful) comments in. So we split it into much smaller section, so it all should fit on one page in your editor.
+So why use the single file approach at all? For modelling certain aspect of the services you need, like 3rd party services you access, it is very tideous to split the little information you have/need into multiple files. This is usually the case for a single file configuration. Since it is easy to start with a single file most projects will start with that. After some growth, simply move the ``pivio.yaml`` in the ``pivio`` sub directory and begin adding data in other files. It is recommended to split them by sections.
 
 So a config directory version would look like this:
 
@@ -24,7 +24,7 @@ So a config directory version would look like this:
 +- src/
 +- pivio/
 |   +- network.yaml
-|   +- general.yaml
+|   +- pivio.yaml
 |   +- context.yaml
 |   +- runtime.yaml
 +- readme.md
@@ -47,24 +47,26 @@ Every section, except some attributed of the general section, is optional. The i
 
 Convention: All keys are lower case and words are connected by '_'. No camelcase.
 
-### general.yaml
+### pivio.yaml
 
 Pivio needs certain *mandantory* fields:
 
-- **id** Unique id in pivio. 
+- **id** Unique id in pivio.
 - **name** The name of the artefact. This is intended for humans.
+- **short_name** A very brief name for the service.
 - **type** The type of this artefact. Values could be `service`, `library` or `mobile_app`.
 - **owner** Which team is responsible for this artefact.
-- **decription** What does this service do? 
+- **decription** What does this service do?
 
 ##### contact
-Who should be contacted if one has a question. 
+Who should be contacted if one has a question.
 
 ##### vcs
 Where can I find the source code? A client who parses this file might choose to generate it from the code which it has at hand (if it is under source control).
 
 ##### links
 All sort of links which might be interesting. Candidates are
+
 
 - homepage
 - buildchain
@@ -75,6 +77,7 @@ Example:
 ```
 id: next-generation-print-2342-2413-9189-1990
 name: Next Generation Print Service
+short_name: NGPS
 type: service
 owner: Team Goldfinger
 description: Prints all kinds of things. Now with 3D printing support.
@@ -91,7 +94,7 @@ links:
 
 
 ##### provides
-What and where does this artefact provides services? 
+What and where does this artefact provides services?
 
 `description` Should be a human readable description.
 `service_name` is the  unqiue  identification of the particluar interface. `port`, `protocol` and `transportation_protocol` are self describing.
@@ -114,7 +117,7 @@ provides:
     service_name: print-service
     url: http://host:80
     transportation_protocol: tcp  
-    
+
 talks_to:
   - print-service
   - gateway-service
@@ -135,7 +138,7 @@ Which `attached_networks` need to be available on the host where this service ge
    - target: mqtt://192.xxx.xxx.xxx:5028
      transportation_protocol: tcp
      why: Get the latest Dealz.
-     
+
  attached_networks:
    - logging
    - shell
@@ -149,10 +152,10 @@ network_zone:
 
 ### context.yaml
 
-If the service does belong to a bounded context it can be specified in: `belongs_to_bounded_context`. General rule is that every service belongs to a bounded context. 
+If the service does belong to a bounded context it can be specified in: `belongs_to_bounded_context`. General rule is that every service belongs to a bounded context.
 
 Which `visibility` does this service have?
- 
+
 - `private`: intended usage is only by the owner
 - `public`: exposes an api for other owners.
 
