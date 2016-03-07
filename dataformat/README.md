@@ -58,7 +58,6 @@ Pivio needs certain *mandantory* fields:
 - **owner** Which team is responsible for this artefact.
 - **decription** What does this service do?
 - **decription** What does this service do?
-- **short_name** The short name of the service. The regular name (see above) of a service could be `3D printing service` whereas the short name is `NGPS`.
 
 ##### contact
 Who should be contacted if one has a question.
