@@ -107,11 +107,11 @@ What and where does this artefact provides services?
 `description` Should be a human readable description.
 `service_name` is the  unqiue  identification of the particluar interface. `port`, `protocol` and `transportation_protocol` are self describing.
 
-**Question:** Explicit declare host,port,protocol or all together?
-
 ##### talks_to
 To which other `service_name` (from `provides`) services does this service talk?
 
+#### external_connections
+To which external `target` needs this artefact to talk to? What is the `transportation_protocol` and `why` is it needed? If it access the external resource `via` another service, it can be defined.
 
 Example:
 
@@ -119,41 +119,38 @@ Example:
 provides:
   - description: REST API
     service_name: uber-bill-print-service
-    url: https://host:8443
+    protocol: https
+    port: 8443
     transportation_protocol: tcp
+    public_dns: 
+     - api.demo-company.com
+     - soap.demo-company.io
   - description: SOAP API (legacy)
     service_name: print-service
-    url: http://host:80
+    potocol: https
+    port: 80
     transportation_protocol: tcp  
 
 talks_to:
   - print-service
   - gateway-service
+
+external_connections:
+  - target: https://api.superdealz.me:443
+    transportation_protocol: tcp
+	 via: proxy-service
+	 why: Need to sync data with it.
+  - target: mqtt://192.xxx.xxx.xxx:5028
+	 transportation_protocol: tcp
+	 why: Get the latest Dealz.
+
 ```
 
 ### network.yaml
 
-To which external `target` needs this artefact to talk to? What is the `transportation_protocol` and `why` is it needed? If it access the external resource `via` another service, it can be defined.
-
-Which `attached_networks` need to be available on the host where this service gets deployed. In which `network_zone` is this service located?
+In which `network_zone` is this service located?
 
 ```
- external_connections:
-   - target: https://api.superdealz.me:443
-     transportation_protocol: tcp
-     via: proxy-service
-     why: Need to sync data with it.
-   - target: mqtt://192.xxx.xxx.xxx:5028
-     transportation_protocol: tcp
-     why: Get the latest Dealz.
-
- attached_networks:
-   - logging
-   - shell
-   - ubp
-   - secure
-   - monitoring     
-
 network_zone:
    BACKEND
 ```
@@ -177,12 +174,18 @@ visibility: private
 ### runtime.yaml
 
 Which requirements does this service have on the runtime? This is used for sizing the machine, VM or container.
+On what kind of `host_type` is this artefact running? Values could be:
+
+- Metal
+- VM
+- Docker
 
 ```
 runtime:
   cpu: L
   ram: S
   disk: XL
+  host_type: VM
 ```
 
 ### software_dependencies.yaml
