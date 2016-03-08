@@ -57,7 +57,6 @@ Pivio needs certain *mandantory* fields:
 - **type** The type of this artefact. Values could be `service`, `library` or `mobile_app`.
 - **owner** Which team is responsible for this artefact.
 - **decription** What does this service do?
-- **decription** What does this service do?
 
 ##### contact
 Who should be contacted if one has a question.
@@ -228,3 +227,56 @@ Example:
 host_group: XYZ
 os: debian
 ```
+
+## Talking JSON?
+
+Since the server works on json, you could use it to feed data into it. Here is an example on how it would look like:
+
+```
+{
+  "owner": "Pivio",
+  "network_zone": "development",
+  "description": "Manages all Pivio documents. Backend by Elasticsearch.",
+  "contact": "team@pivio.io",
+  "name": "Pivio-Server",
+  "document_version": "1.0",
+  "type": "Service",
+  "short_name": "PSRV",
+  "id": "pivio-server",
+  "tags": [
+    "EAM",
+    "Pivio"
+  ],
+  "runtime": {
+    "disk": "S",
+    "cpu": "S",
+    "host_type": "docker",
+    "ram": "S"
+  },
+  "service": {
+    "provides": [
+      {
+        "protocol": "http",
+        "port": "9123",
+        "service_name": "pivio-storage-service",
+        "description": "REST API for storing pivio documents.",
+        "transportation_protocol": "tcp"
+      }
+    ],
+    "talks_to": [
+      "pivio-elasticsearch"
+    ]
+  },
+  "context": {
+    "visibility": "public",
+    "belongs_to_bounded_context": "pivio"
+  },
+  "links": [
+    {
+      "homepage": "http://pivio.io"
+    }
+  ]
+}
+
+```
+
