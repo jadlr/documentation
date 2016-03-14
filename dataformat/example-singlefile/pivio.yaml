@@ -5,6 +5,7 @@ owner: Team Goldfinger
 description: Prints all kinds of things. Now with 3D printing support.
 vcs: git://git.vcs.local/UBP
 contact: Auric Goldfinger
+short_name: NGPS
 tags:
   - Architecture
 links:

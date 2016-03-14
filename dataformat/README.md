@@ -51,7 +51,7 @@ Convention: All keys are lower case and words are connected by '_'. No camelcase
 
 Pivio needs certain *mandantory* fields:
 
-- **id** Unique id in pivio.
+- **id** Unique id in pivio. You can ask the pivio service for a unique id.
 - **name** The name of the artefact. This is intended for humans.
 - **short_name** A very brief name for the service.
 - **type** The type of this artefact. Values could be `service`, `library` or `mobile_app`.
@@ -110,7 +110,7 @@ What and where does this artefact provides services?
 To which other `service_name` (from `provides`) services does this service talk?
 
 ##### external_connections
-To which external `target` needs this artefact to talk to? What is the `transportation_protocol` and `why` is it needed? If it access the external resource `via` another service, it can be defined.
+To which external `target` needs this artefact to talk to? What is the `transport_protocol` and `why` is it needed? If it access the external resource `via` another service, it can be defined.
 
 ##### tags
 
@@ -125,7 +125,7 @@ service:
 	    service_name: uber-bill-print-service
 	    protocol: https
 	    port: 8443
-	    transportation_protocol: tcp
+	    transport_protocol: tcp
 	    public_dns: 
 	     - api.demo-company.com
 	     - soap.demo-company.io
@@ -133,26 +133,26 @@ service:
 	    service_name: print-service
 	    potocol: https
 	    port: 80
-	    transportation_protocol: tcp  
+	    transport_protocol: tcp  
 	
-	talks_to:
+	interacts_with:
 	  - print-service
 	  - gateway-service
 	
 	external_connections:
 	  - target: https://api.superdealz.me:443
-	    transportation_protocol: tcp
+	    transport_protocol: tcp
 		 via: proxy-service
 		 why: Need to sync data with it.
 	  - target: mqtt://192.xxx.xxx.xxx:5028
-		 transportation_protocol: tcp
+		 transport_protocol: tcp
 		 why: Get the latest Dealz.
 
 ```
 
 ### network.yaml
 
-In which `network_zone` is this service located?
+In which `network_zone` is this service located? You choose what the values should be, e.g. DMZ, BACKEND, CORE, DATABASE.
 
 ```
 network_zone:
@@ -161,7 +161,7 @@ network_zone:
 
 ### context.yaml
 
-If the service does belong to a bounded context it can be specified in: `belongs_to_bounded_context`. General rule is that every service belongs to a bounded context.
+If the service does belong to a bounded context it can be specified in: `belongs_to_bounded_context`. General rule is that every service belongs to a bounded context. 
 
 Which `visibility` does this service have?
 
