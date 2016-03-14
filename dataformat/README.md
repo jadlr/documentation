@@ -104,17 +104,19 @@ links:
 What and where does this artefact provides services?
 
 `description` Should be a human readable description.
-`service_name` is the  unqiue  identification of the particluar interface. `port`, `protocol` and `transportation_protocol` are self describing.
+`service_name` is the  unqiue  identification of the particluar interface. `port`, `protocol` and `transport_protocol` are self describing.
 
-##### talks_to
+##### interacts_with
+
+**internal**
+
 To which other `service_name` (from `provides`) services does this service talk?
 
-##### external_connections
-To which external `target` needs this artefact to talk to? What is the `transport_protocol` and `why` is it needed? If it access the external resource `via` another service, it can be defined.
+**external**
 
-##### tags
+To which external `target` needs this artefact to talk to? This is meant to show if this service talks to another one outside of your system, like a public API of another service provider 'in the cloud'.
 
-Again, add your own tags.
+What is the `transport_protocol` and `why` is it needed? If it access the external resource `via` another service, it can be defined.
 
 Example:
 
@@ -136,17 +138,17 @@ service:
 	    transport_protocol: tcp  
 	
 	interacts_with:
-	  - print-service
-	  - gateway-service
-	
-	external_connections:
-	  - target: https://api.superdealz.me:443
-	    transport_protocol: tcp
-		 via: proxy-service
-		 why: Need to sync data with it.
-	  - target: mqtt://192.xxx.xxx.xxx:5028
-		 transport_protocol: tcp
-		 why: Get the latest Dealz.
+		internal:
+		  - print-service
+		  - gateway-service
+		external:
+		  - target: https://api.superdealz.me:443
+		    transport_protocol: tcp
+			 via: proxy-service
+			 why: Need to sync data with it.
+		  - target: mqtt://192.xxx.xxx.xxx:5028
+			 transport_protocol: tcp
+			 why: Get the latest Dealz.
 
 ```
 

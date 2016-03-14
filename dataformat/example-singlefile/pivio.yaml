@@ -30,7 +30,11 @@ service:
         - soap.demo-company.io
       transport_protocol: tcp
 
-  external_connections:
+  interacts_with:
+    internal:
+      - print-service
+      - gateway-service
+    external:
      - target: https://api.superdealz.me:443
        transport_protocol: tcp
        via: proxy-service
@@ -38,10 +42,6 @@ service:
      - target: mqtt://192.xxx.xxx.xxx:5028
        transport_protocol: tcp
        why: Get the latest Dealz.
-
-  interacts_with:
-    - print-service
-    - gateway-service
 #-------------------------------------------------------------------------------
 network:
   network_zone: BACKEND
