@@ -15,7 +15,7 @@ service:
         - soap.demo-company.io
       transport_protocol: tcp
 
-  interacts_with:
+  depends_on:
     internal:
       - print-service
       - gateway-service

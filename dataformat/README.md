@@ -106,7 +106,7 @@ What and where does this artefact provides services?
 `description` Should be a human readable description.
 `service_name` is the  unqiue  identification of the particluar interface. `port`, `protocol` and `transport_protocol` are self describing.
 
-##### interacts_with
+##### depends_on
 
 **internal**
 
@@ -137,7 +137,7 @@ service:
 	    port: 80
 	    transport_protocol: tcp  
 	
-	interacts_with:
+	depends_on:
 		internal:
 		  - print-service
 		  - gateway-service
