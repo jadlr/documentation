@@ -43,9 +43,6 @@ service:
        transport_protocol: tcp
        why: Get the latest Dealz.
 #-------------------------------------------------------------------------------
-network:
-  network_zone: BACKEND
-#-------------------------------------------------------------------------------
 context:
   belongs_to_bounded_context: Delivery
   visibility: private
@@ -55,4 +52,5 @@ runtime:
   ram: S
   disk: XL
   host_type: VM
+  network_zone: BACKEND
 #-------------------------------------------------------------------------------

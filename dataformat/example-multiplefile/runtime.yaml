@@ -3,3 +3,4 @@ runtime:
   ram: S
   disk: XL
   host_type: docker
+  network_zone: BACKEND

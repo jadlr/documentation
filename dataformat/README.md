@@ -152,15 +152,6 @@ service:
 
 ```
 
-### network.yaml
-
-In which `network_zone` is this service located? You choose what the values should be, e.g. DMZ, BACKEND, CORE, DATABASE.
-
-```
-network_zone:
-   BACKEND
-```
-
 ### context.yaml
 
 If the service does belong to a bounded context it can be specified in: `belongs_to_bounded_context`. General rule is that every service belongs to a bounded context. 
@@ -187,12 +178,15 @@ On what kind of `host_type` is this artefact running? Values could be:
 - VM
 - Docker
 
+In which `network_zone` is this service located? You choose what the values should be, e.g. DMZ, BACKEND, CORE, DATABASE.
+
 ```
 runtime:
   cpu: L
   ram: S
   disk: XL
   host_type: VM
+  network_zone: BACKEND
 ```
 
 ### software_dependencies.yaml
