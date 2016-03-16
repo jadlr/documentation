@@ -23,7 +23,6 @@ So a config directory version would look like this:
 +- ...
 +- src/
 +- pivio/
-|   +- network.yaml
 |   +- pivio.yaml
 |   +- context.yaml
 |   +- runtime.yaml
@@ -226,53 +225,80 @@ os: debian
 
 ## Talking JSON?
 
-Since the server works on json, you could use it to feed data into it. Here is an example on how it would look like:
+Since the server works on json, you could use it to feed data into it. Here is the `example-singlefile/pivio.yaml` example on how it would look like in json:
 
 ```
 {
-  "owner": "Pivio",
-  "network_zone": "development",
-  "description": "Manages all Pivio documents. Backend by Elasticsearch.",
-  "contact": "team@pivio.io",
-  "name": "Pivio-Server",
-  "document_version": "1.0",
-  "type": "Service",
-  "short_name": "PSRV",
-  "id": "pivio-server",
-  "tags": [
-    "EAM",
-    "Pivio"
-  ],
+  "owner": "Team Goldfinger",
+  "vcs": "git://git.vcs.local/UBP",
+  "description": "Prints all kinds of things. Now with 3D printing support.",
   "runtime": {
-    "disk": "S",
-    "cpu": "S",
-    "host_type": "docker",
+    "disk": "XL",
+    "network_zone": "BACKEND",
+    "cpu": "L",
+    "host_type": "VM",
     "ram": "S"
   },
+  "type": "service",
+  "tags": [
+    "Architecture"
+  ],
   "service": {
+    "depends_on": {
+      "internal": [
+        "print-service",
+        "gateway-service"
+      ],
+      "external": [
+        {
+          "why": "Need to sync data with it.",
+          "transport_protocol": "tcp",
+          "target": "https://api.superdealz.me:443",
+          "via": "proxy-service"
+        },
+        {
+          "why": "Get the latest Dealz.",
+          "transport_protocol": "tcp",
+          "target": "mqtt://192.xxx.xxx.xxx:5028"
+        }
+      ]
+    },
     "provides": [
       {
+        "protocol": "https",
+        "port": "8443",
+        "service_name": "uber-bill-print-service",
+        "description": "REST API",
+        "public_dns": [
+          "api.demo-company.com"
+        ],
+        "transport_protocol": "tcp"
+      },
+      {
         "protocol": "http",
-        "port": "9123",
-        "service_name": "pivio-storage-service",
-        "description": "REST API for storing pivio documents.",
-        "transportation_protocol": "tcp"
+        "port": "80",
+        "service_name": "print-service",
+        "description": "SOAP API (legacy)",
+        "public_dns": [
+          "soap.demo-company.io"
+        ],
+        "transport_protocol": "tcp"
       }
-    ],
-    "talks_to": [
-      "pivio-elasticsearch"
     ]
   },
+  "contact": "Auric Goldfinger",
+  "name": "Next Generation Print Service",
   "context": {
-    "visibility": "public",
-    "belongs_to_bounded_context": "pivio"
+    "visibility": "private",
+    "belongs_to_bounded_context": "Delivery"
   },
-  "links": [
-    {
-      "homepage": "http://pivio.io"
-    }
-  ]
+  "short_name": "NGPS",
+  "links": {
+    "api_docs": "http://docs.local/ubp-api",
+    "buildchain": "http://ci.local/ubp",
+    "homepage": "http://wiki.local/ubp"
+  },
+  "id": "next-generation-print-2342-2413-9189-1990"
 }
-
 ```
 
