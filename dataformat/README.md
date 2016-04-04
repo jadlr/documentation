@@ -63,9 +63,15 @@ Who should be contacted if one has a question.
 ##### vcs
 Where can I find the source code? A client who parses this file might choose to generate it from the code which it has at hand (if it is under source control).
 
-#### tags
+##### tags
 
 Add tags.
+
+##### lifecycle
+
+In which lifecycle is this component? Only in development, in production or out of service.
+
+
 
 ##### links
 All sort of links which might be interesting. Candidates are
@@ -86,6 +92,7 @@ owner: Team Goldfinger
 description: Prints all kinds of things. Now with 3D printing support.
 vcs: git://git.vcs.local/UBP
 contact: Auric Goldfinger
+lifecycle: production
 tags:
  - Old
  - Demo
@@ -109,7 +116,9 @@ What and where does this artefact provides services?
 
 **internal**
 
-To which other `service_name` (from `provides`) services does this service talk?
+To which other `service_name` (from `provides`) services does this service talk? 
+
+If you don't know the service name, you can specify the `short_name` of this service with appended '\_' and the port number (e.g. `NGPS_8791`). This has the disadvantge if the port number changes your resulting data might be incorrect. 
 
 **external**
 
@@ -127,7 +136,7 @@ service:
 	    protocol: https
 	    port: 8443
 	    transport_protocol: tcp
-	    public_dns: 
+	    public_dns:
 	     - api.demo-company.com
 	     - soap.demo-company.io
 	  - description: SOAP API (legacy)
@@ -135,11 +144,12 @@ service:
 	    potocol: https
 	    port: 80
 	    transport_protocol: tcp  
-	
+
 	depends_on:
 		internal:
 		  - print-service
 		  - gateway-service
+		  - NGPS_8719
 		external:
 		  - target: https://api.superdealz.me:443
 		    transport_protocol: tcp
@@ -153,7 +163,7 @@ service:
 
 ### context.yaml
 
-If the service does belong to a bounded context it can be specified in: `belongs_to_bounded_context`. General rule is that every service belongs to a bounded context. 
+If the service does belong to a bounded context it can be specified in: `belongs_to_bounded_context`. General rule is that every service belongs to a bounded context.
 
 Which `visibility` does this service have?
 
@@ -301,4 +311,3 @@ Since the server works on json, you could use it to feed data into it. Here is t
   "id": "next-generation-print-2342-2413-9189-1990"
 }
 ```
-

@@ -34,6 +34,8 @@ service:
     internal:
       - print-service
       - gateway-service
+      - NGPS_8791
+
     external:
      - target: https://api.superdealz.me:443
        transport_protocol: tcp
