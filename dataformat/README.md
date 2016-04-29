@@ -3,7 +3,7 @@
 The data format is somewhat generic and you can use any attributes you need for your use case.
 However, we tuned the server backed elasticsearch a bit to support the structure we think is useful.
 
-The examples are all in yaml format. This is just a convience since we think it is easier to read and write than json. A suiteable client  on the other hand must to speak json to the server, so he needs to convert it.
+The examples are all in yaml format. This is just a convenience since we think it is easier to read and write than json. A suitable client  on the other hand must to speak json to the server, so he needs to convert it.
 
 ## Where
 
@@ -15,7 +15,7 @@ You two choices to specify your metadata of your code and services.
 The content is structured in both cases the same. In the single file case you need to have section as keys like ``general``, ``network`` and ``software_dependencies``. In the latter case you can split the content in multiple files in the subdirectory `pivio`. If you have both ``pivio.yaml`` and ``pivio`` directory the client should exit with an error message.
 
 So what's the different use cases for both styles? In your own source code you will usually use the directory based approach, since the config file can be very long, especially when you leave all the (useful) comments in. So we split it into much smaller section, so it all should fit on one page in your editor.
-So why use the single file approach at all? For modelling certain aspect of the services you need, like 3rd party services you access, it is very tideous to split the little information you have/need into multiple files. This is usually the case for a single file configuration. Since it is easy to start with a single file most projects will start with that. After some growth, simply move the ``pivio.yaml`` in the ``pivio`` sub directory and begin adding data in other files. It is recommended to split them by sections.
+So why use the single file approach at all? For modeling certain aspect of the services you need, like 3rd party services you access, it is very tiring to split the little information you have/need into multiple files. This is usually the case for a single file configuration. Since it is easy to start with a single file most projects will start with that. After some growth, simply move the ``pivio.yaml`` in the ``pivio`` sub directory and begin adding data in other files. It is recommended to split them by sections.
 
 So a config directory version would look like this:
 
@@ -48,14 +48,14 @@ Convention: All keys are lower case and words are connected by '_'. No camelcase
 
 ### pivio.yaml
 
-Pivio needs certain *mandantory* fields:
+Pivio needs certain *mandatory* fields:
 
 - **id** Unique id in pivio. You can ask the pivio service for a unique id.
 - **name** The name of the artefact. This is intended for humans.
 - **short_name** A very brief name for the service.
 - **type** The type of this artefact. Values could be `service`, `library` or `mobile_app`.
 - **owner** Which team is responsible for this artefact.
-- **decription** What does this service do?
+- **description** What does this service do?
 
 ##### contact
 Who should be contacted if one has a question.
@@ -110,15 +110,17 @@ links:
 What and where does this artefact provides services?
 
 `description` Should be a human readable description.
-`service_name` is the  unqiue  identification of the particluar interface. `port`, `protocol` and `transport_protocol` are self describing.
+`service_name` is the  unique identification of the particular interface. `port`, `protocol` and `transport_protocol` are self describing.
 
 ##### depends_on
 
 **internal**
 
-To which other `service_name` (from `provides`) services does this service talk? 
+To which other `service_name` (from `provides`) services does this service talk? Option: service_name
 
-If you don't know the service name, you can specify the `short_name` of this service with appended '\_' and the port number (e.g. `NGPS_8791`). This has the disadvantge if the port number changes your resulting data might be incorrect. 
+If you don't know the service name, you can specify the `short_name` of this service with appended '\_' and the port number (e.g. `NGPS_8791`). This has the disadvantage if the port number changes your resulting data might be incorrect (Option: short_name_port)
+
+`why` defines why this connection is needed.
 
 **external**
 
@@ -141,15 +143,17 @@ service:
 	     - soap.demo-company.io
 	  - description: SOAP API (legacy)
 	    service_name: print-service
-	    potocol: https
+	    protocol: https
 	    port: 80
 	    transport_protocol: tcp  
 
 	depends_on:
 		internal:
-		  - print-service
-		  - gateway-service
-		  - NGPS_8719
+		  - service_name: print-service
+        why: need to print
+		  - service_name: gateway-service
+		  - short_name: NGPS
+        port: 8719
 		external:
 		  - target: https://api.superdealz.me:443
 		    transport_protocol: tcp
@@ -170,7 +174,7 @@ Which `visibility` does this service have?
 - `private`: intended usage is only by the owner
 - `public`: exposes an api for other owners.
 
-Components that are under development, experimental, not supported, beeing replaces or to change without warning should be `private`.
+Components that are under development, experimental, not supported, being replaced or to change without warning should be `private`.
 
 ```
 context:

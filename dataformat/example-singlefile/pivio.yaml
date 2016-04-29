@@ -20,7 +20,7 @@ service:
       protocol: https
       port: 8443
       transport_protocol: tcp
-      public_dns: 
+      public_dns:
        - api.demo-company.com
     - description: SOAP API (legacy)
       service_name: print-service
@@ -32,9 +32,11 @@ service:
 
   depends_on:
     internal:
-      - print-service
-      - gateway-service
-      - NGPS_8791
+      - service_name: print-service
+        why: I need to print
+      - service_name: gateway-service
+      - short_name: NGPS
+        port: 8791
 
     external:
      - target: https://api.superdealz.me:443
