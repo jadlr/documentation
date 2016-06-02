@@ -150,10 +150,10 @@ service:
 	depends_on:
 		internal:
 		  - service_name: print-service
-        why: need to print
+            why: need to print
 		  - service_name: gateway-service
 		  - short_name: NGPS
-        port: 8719
+            port: 8719
 		external:
 		  - target: https://api.superdealz.me:443
 		    transport_protocol: tcp
