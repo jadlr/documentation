@@ -1,4 +1,4 @@
-# documentation
+# Pivio
 
 All documentation for Pivio.
 

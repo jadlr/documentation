@@ -1,0 +1,34 @@
+= Pivio - Platform documentation in your source code
+:toc:
+:toc-position: left
+include::section-what.adoc[]
+include::section-why.adoc[]
+include::section-concepts.adoc[]
+include::section-dataformat.adoc[]
+include::section-software.adoc[]
+
+== Extending Pivio
+
+== Working example
+
+== Cook Book
+
+[ditaa, diagramm.png]
+....
+                   +-------------+
+                   | Asciidoctor |-------+
+                   |   diagram   |       |
+                   +-------------+       | PNG out
+                       ^                 |
+                       | ditaa in        |
+                       |                 v
+ +--------+   +--------+----+    /---------------\
+ |        | --+ Asciidoctor +--> |               |
+ |  Text  |   +-------------+    |   Beautiful   |
+ |Document|   |   !magic!   |    |    Output     |
+ |     {d}|   |             |    |               |
+ +---+----+   +-------------+    \---------------/
+     :                                   ^
+     |          Lots of work             |
+     +-----------------------------------+
+....
