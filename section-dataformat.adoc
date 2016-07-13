@@ -1,3 +1,4 @@
+[[section-dataformat]]
 == Data format
 
 The data format is somewhat generic and you can use any attributes you need for your use case.

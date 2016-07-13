@@ -15,7 +15,7 @@ The code is available from the Github repository at: https://github.com/pivio/
 
 All code is written in Java 8 and needs Gradle for building.
 Change into each directory and issue ``gradle build`` to compile, test and package.
-The ready to use jar file will be located in ``build/lib``.
+The ready to use jar file will be located in ``build/libs``.
 
 === Client
 
@@ -80,6 +80,24 @@ Usage: java -jar ./pivio.jar -source /home/ci/source/customerservice
 ~/Source/oliver/pivio/documentation
 
 ----
+
+You can define certain defaults in a properties file which will be used if it exists. The default location for this is /etc/pivio.properties (can be configured via -config switch).
+
+You can configure the following values:
+
+- source
+- gitremote
+- serviceurl
+- file
+- defaultfile
+- yamldir
+- manualdependencies
+
+The format is key:value as in Java properties files.
+
+==== Exit codes
+
+If a Yaml file is not a valid yaml file the client will exit with code 1.
 
 ==== Dependencies & License information
 

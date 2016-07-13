@@ -3,11 +3,11 @@
 :toc-position: left
 include::section-what.adoc[]
 include::section-why.adoc[]
+include::section-quickstart.adoc[]
 include::section-concepts.adoc[]
 include::section-dataformat.adoc[]
 include::section-software.adoc[]
-
-== Extending Pivio
+include::section-extending-pivio.adoc[]
 
 == Working example
 
