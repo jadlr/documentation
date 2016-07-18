@@ -210,18 +210,21 @@ If however you need to specify the software dependencies by hand, this is the pl
 
 ```
 software_dependencies:
-	- name: PHP
-	  version: 3.0.1
-	  license: PHP License
-	  url: http://php.net/license/3_01.txt
-	- name: GNU C
-	  version: 4.9.2
-	  license: GPL
-	  url: https://gcc.gnu.org/onlinedocs/libstdc++/manual/license.html
-	- name: Strange Framework
-	  version: 1.0
-	  license: GPL
-	  url: https://gcc.gnu.org/onlinedocs/libstdc++/manual/license.html
+  - name: PHP
+    version: 3.0.1
+    licenses:
+      - name: PHP License
+        url: http://php.net/license/3_01.txt
+  - name: GNU C
+    version: 4.9.2
+    licenses:
+      - name: GPL
+        url: https://gcc.gnu.org/onlinedocs/libstdc++/manual/license.html
+  - name: Strange Framework
+    version: 1.0
+    licenses:
+      - name: GPL
+        url: https://gcc.gnu.org/onlinedocs/libstdc++/manual/license.html
 ```
 
 ## Custom extensions
