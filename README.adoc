@@ -8,6 +8,7 @@ include::section-concepts.adoc[]
 include::section-dataformat.adoc[]
 include::section-software.adoc[]
 include::section-extending-pivio.adoc[]
+include::section-best-practices.adoc[]
 
 == Working example
 

@@ -25,21 +25,43 @@ can be extended to include your own standalone view of your custom data. See <<s
 
 [ditaa, concept.png]
 ....
-                                         +--------------+
-                                         | Commandline  |
-                         +---------------| Tools        |
-                         |               +--------------+
-                         V
-+--------+ upload    +---------+         +---------+
-| Pivio  | --------> | Pivio   | <------ | Pivio   | <--------+
-| Client | json      | Server  |         | Webview |          |
-| cBLU   |           +---------+         +---------+          |
-+--------+               ^    ^                          +-----------+
-                         |    |                          | Browser   |
-                         |    +---------------+          +-----------+
-                         V                    |               |
-                 +----------------+      +------------+       |
-                 | Elasticsearch  |      | Pivio View |<------+
-                 +----------------+      | Extensions |
-                                         +------------+
+                                                               +----------------+
+                          +------------------------------------| Commandline    |
+                          |                                    | Clients (curl) |
+                          |                                    | cYEL           |
+                          |                                    +----------------+
+                          |                                    +--------------+
+                          |                                    | Your         |
+                          |                                    | Commandline  |
+                          |    +-------------------------------| Tools        |
+                          |    |                               +--------------+
+                          V    V
++--------+ upload      +---------+  query        +---------+
+| Pivio  | ----------->| Pivio   | <-------------| Pivio   | <--------+
+| Client | document(s) | Server  |  document(s)  | Webview |          |
+| cBLU   |             | cBLU    |               | cBLU    |          |
++--------+             +---------+               +---------+          |
+                         ^    ^                                 +--------------+
+                  store  |    |                                 | Browser      |
+               documents |    +----------------------+          |  cYEL        |
+                         V                           |          +--------------+
+                 +----------------+             +------------+         |
+                 | Elasticsearch  |             | Your       |<--------+
+                 | cGRE           |             | Pivio View |
+                 +----------------+             | Extension  |
+                                                +------------+
+
+
+
+
+
+
+Legend:
+
+
++-------------+ +----------------------+ +------------+ +---------+
+| Pivio Tools | | Third Party          | | Your Tools | | Clients |
+| cBLU        | | (Part of Pivio) cGRE | |            | | cYEL    |
++-------------+ +----------------------+ +------------+ +---------+
+
 ....

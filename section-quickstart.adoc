@@ -1,4 +1,4 @@
-
+[[section-quickstart]]
 == Quickstart
 
 Pivio has a demo setup to get you started quickly.
