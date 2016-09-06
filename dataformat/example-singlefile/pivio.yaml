@@ -63,7 +63,7 @@ software_dependencies:
     version: 3.0.1
     licenses:
       - name: PHP License
-  url: http://php.net/license/3_01.txt
+        url: http://php.net/license/3_01.txt
   - name: GNU C
     version: 4.9.2
     licenses:
